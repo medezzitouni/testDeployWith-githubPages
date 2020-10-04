@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+#form{
+    width: 25%;
+    height: 500px;
+    margin: auto;
+    margin-top: 200px;
+    /* background-color: red; */
+    /* display: grid;
+    align-items: center; */
+}
+
+.input{
+    width: 100%;
+}
+
+#btn{
+    margin-top: 10px;
+     background-color: cornflowerblue; 
+     color: aliceblue; 
+     width: 100%;
+}
