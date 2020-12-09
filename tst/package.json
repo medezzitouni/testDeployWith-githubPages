@@ -1,0 +1,17 @@
+{
+  "name": "tst",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "moment": "^2.29.1",
+    "moment-shortformat": "^2.1.0"
+  }
+}

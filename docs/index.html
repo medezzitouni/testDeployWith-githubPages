@@ -3,23 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuildTest</title>
+    <title>MyTodo List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form id="form" >
-        <div >
-            <label for="username">Username: </label>
-            <input class="input" type="text" name="username" id="username">
-        </div>
-        <div >
-            <label for="email">Email: </label>
-            <input class="input" type="text" name="email" id="email">
-        </div>
 
-        <button class="button" id="btn" " type="submit">Send 😹 </button>
-    </form>
+    <div id="app">
+        <div>
+            <span id='today' title="Date" > 📅 {{today}} </span>
+            <button @click="clearTdos" class="button clearButton is-danger is-light " title="Delete all todos">Clear 😱 </button>
+            <list-todo-items inline-template :todos='todos' :exist='todosExist'>
+                <div>
+                    <div class="TodosTitle">{{ msg }} 👇 </div>
+                    <div v-show='exist' class="noTodos button is-info is-small is-light ">No Todos for To Day 😧 </div>
+                    <div v-for='item in todos' :key="item.id" id="item" @dblclick='deleteTodo(item.id)' title='double click to delete'>
+                        <span id="todo" :class="item.completed && 'item-completed'">
+                            {{ item.todo }}
+                        </span>
+                        <span id="check">
+                            <input type="checkbox" @click="checkCompleted(item.id)" name="" :checked="item.completed" >
+                            <button class="delete " @click="deleteTodo(item.id)">x</button>
+                        </span>
+                    </div>
+                </div>
+            </list-todo-items>
+            <add-item inline-template >
+                <div>
+                    <input type="text" class="input" @keyup.enter="addTodoItem" name="" v-model="addItem" id="">
+                    <button id="btn" @click="addTodoItem">ADD 👊 </button>
+                </div>
+            </add-item>
+        </div>
+    </div>    
 </body>
-<script src="./client.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.1/uuid.min.js"></script>
+<script src="./app.js"></script>
+<!-- <script>
+    localStorage.setItem('t', [{a :'hello', b:false}])
+    console.log('hna')
+    console.table(localStorage.getItem('t'))
+</script> -->
 </html>
