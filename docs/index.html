@@ -3,46 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyTodo List</title>
+    <title>Planning 🖖 </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
+    <div  class="container-fluid" id="app">
+        <div class="columns is-mobile father" >
+            <div class="column is-3-desktop is-12-mobile  is-full-mobile sheet-container">
+                <div class="container-fluid mt-4">
+                    <sheets-list inline-template :sheets="sheets">
+                        <div>
+                            <div class="ml-3 mb-4 pl-6  pb-1 sheets-title">{{ title }}</div>
+                            <!-- <hr> -->
+                            <div v-for="sheet in sheets" :key="sheet.id"   
+                            class="sheet-item px-5  has-text-white mb-5" @click="displaySheetTodos(sheet.id)"
+                            @dblclick="deleteSheet(sheet.id)"
+                            >
+                                <span class="sheet-name"> 
+                                    {{ sheet.name | capitalize | truncate(8) }} 
+                                </span>
+                                <span>{{ sheet.executionDate | convertToDate }}</span>
+                                <sub class="mt-2 sheet-sub ">{{ sheet.date | convertToDate}}</sub>
+                            </div>
+                        </div>
+                    </sheets-list>
+                    <add-sheet inline-template class="add-sheet ">
+                        <div class="columns  pl-5" >
+                            <input type="text" class="input column is-5-desktop add-sheet-inputs" name="" 
+                            v-model="sheetName" placeholder="Name..." @keyup.enter="addSheet">
 
-    <div id="app">
-        <div>
-            <span id='today' title="Date" > 📅 {{today}} </span>
-            <button @click="clearTdos" class="button clearButton is-danger is-light " title="Delete all todos">Clear 😱 </button>
-            <list-todo-items inline-template :todos='todos' :exist='todosExist'>
-                <div>
-                    <div class="TodosTitle">{{ msg }} 👇 </div>
-                    <div v-show='exist' class="noTodos button is-info is-small is-light ">No Todos for To Day 😧 </div>
-                    <div v-for='item in todos' :key="item.id" id="item" @dblclick='deleteTodo(item.id)' title='double click to delete'>
-                        <span id="todo" :class="item.completed && 'item-completed'">
-                            {{ item.todo }}
-                        </span>
-                        <span id="check">
-                            <input type="checkbox" @click="checkCompleted(item.id)" name="" :checked="item.completed" >
-                            <button class="delete " @click="deleteTodo(item.id)">x</button>
-                        </span>
-                    </div>
+                            <input type="text" class="input column is-5-desktop is-offset-1-desktop  add-sheet-inputs" name="" v-model="executionDate"  placeholder="mm/dd/yyyy" @keyup.enter="addSheet">
+                        </div>
+                    </add-sheet>
                 </div>
-            </list-todo-items>
-            <add-item inline-template >
+            </div>
+            <div class="column is-9-desktop is-12-mobile" id="todayList">
                 <div>
-                    <input type="text" class="input" @keyup.enter="addTodoItem" name="" v-model="addItem" id="">
-                    <button id="btn" @click="addTodoItem">ADD 👊 </button>
+                    <span class="name-sheet px-4">{{ sheetName | capitalize }}</span>
+                    <span id='today' title="Date" > 📅 {{today}} </span>
+                    <button @click="clearTodos" class="button clearButton is-danger is-light" title="Delete all todos">
+                        Clear 😱
+                    </button>
+                    <list-todo-items inline-template :todos='todos' :exist='todosExist' >
+                        <div>
+                            <div class="TodosTitle">{{ msg }} 👇 </div>
+                            <div v-show='exist' class="noTodos button is-info is-small is-light ">No Todos for To Day 😧 </div>
+                            <div v-for='item in todos' :key="item.id" id="item" @click="checkCompleted(item.id)" @dblclick='deleteTodo(item.id)'
+                             title='click to set it completed & double click to delete'>
+                                <div id="item-content">
+                                    <span id="todo" :class="item.completed && 'item-completed'">
+                                        {{ item.todo }}
+                                    </span>
+                                    <span id="check">
+                                        <input type="checkbox"  class='completedCheckbox' @click="checkCompleted(item.id)" name="" :checked="item.completed" >
+                                        <button class="delete " @click="deleteTodo(item.id)">x</button>
+                                    </span>
+                                </div>
+                                <sub class="todo-sub">{{ displayTodoDate(item.date) }}</sub>
+                            </div>
+                        </div>
+                    </list-todo-items>
+                    <add-item inline-template >
+                        <div>
+                            <input type="text" class="input add-todo-input" @keyup.enter="addTodoItem" name="" v-model="addItem" id="">
+                            <button id="btn" @click="addTodoItem">ADD 👊 </button>
+                        </div>
+                    </add-item>
                 </div>
-            </add-item>
+            </div>
         </div>
     </div>    
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.1/uuid.min.js"></script>
-<script src="./app.js"></script>
-<!-- <script>
-    localStorage.setItem('t', [{a :'hello', b:false}])
-    console.log('hna')
-    console.table(localStorage.getItem('t'))
-</script> -->
+<script type="module" src="main.js"></script>
 </html>
