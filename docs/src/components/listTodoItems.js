@@ -4,7 +4,7 @@ Vue.component('listTodoItems', {
     props : ['todos', 'exist'],
     data () {
         return {
-            msg : "Today Todos ",
+            msg : "Todos ",
             
         }    
     },
