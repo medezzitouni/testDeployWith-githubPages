@@ -87,7 +87,7 @@ new Vue({
         },
         addSheet(sheet){
             let sheetId = storeSheet.addSheet(sheet);
-            console.log(sheetId);
+            // console.log(sheetId);
             this.dispatchSheets()
             this.dispatchTodos(sheetId)
         },
